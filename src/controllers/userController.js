@@ -1,14 +1,18 @@
 const userModel = require("../models/userModel")
 
-
 module.exports.createUser = async function (req, res) {
     try {
+        let name = req.body.name
         let userName = req.body.userName
         let password = req.body.password
         let dataToBeCreated = {
+            name: name,
             userName: userName,
             password: password
         }
+        if (!name) return res.status(400).send("Enter Name")
+        if (!userName) return res.status(400).send("Enter userName")
+        if (!password) return res.status(400).send("Enter password")
         let checkUser = await userModel.findOne({ userName: userName })
         if (checkUser) return res.status(400).send(`Already have an account from ${userName}. Please Login`)
         let userDetails = await userModel.create(dataToBeCreated)
@@ -23,6 +27,9 @@ module.exports.userLogin = async function (req, res) {
     try {
         let userName = req.body.userName
         let password = req.body.password
+        if (!userName) return res.status(400).send("Enter userName")
+        if (!password) return res.status(400).send("Enter password")
+
         let userDetails = await userModel.findOne({
             $and: [{ userName: userName }, { password: password }]
         })

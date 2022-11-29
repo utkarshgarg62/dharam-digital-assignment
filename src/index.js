@@ -19,11 +19,23 @@ app.use(session({
 mongoose.connect("mongodb+srv://functionup-radon-cohort:radon123@cluster0.zbsotuc.mongodb.net/dharam-digital", {
     useNewUrlParser: true
 })
-    .then(() => console.log("MongoDB Connected Successfully"))
+    .then(() => console.log("MongoDB Connected Successfully", process.pid))
     .catch((err) => console.error(err))
+
 
 app.use("/", route)
 
-app.listen(PORT, () => {
+const Server = app.listen(PORT, () => {
     console.log("Express running on port ", PORT)
+})
+
+
+process.on("SIGINT", () => {
+    console.log("SIGINT recieved")
+    Server.close(() => {
+        console.log("Server is closed..")
+        mongoose.connection.close(false, () => {
+            process.exit(0)
+        })
+    })
 })

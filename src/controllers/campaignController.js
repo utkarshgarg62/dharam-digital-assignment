@@ -81,7 +81,6 @@ module.exports.toggleCampaign = async function (req, res) {
 
 
 
-
 // {
 //     "short_token":"67891",
 //     "name":"campaign2",
