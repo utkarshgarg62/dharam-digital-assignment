@@ -5,5 +5,5 @@
 
 ## Steps -
 1. npm i
-2. Export the postman file given below.
+2. Export the postman file (POSTMAN COLLECTION.json)
 3. Good to go.
