@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const { isAuth } = require("../middlewares/isAuth")
+const { isAuth, setCount } = require("../middlewares/isAuth")
 const userController = require("../controllers/userController")
 const campaignController = require("../controllers/campaignController")
 
@@ -10,7 +10,7 @@ router.get("/api/logout", userController.logout)
 router.get("/api/admin", isAuth, userController.adminDashboard)
 
 router.post("/api/campaign", campaignController.createCampaign)
-router.post("/api/redirect", campaignController.redirectCampaign)
+router.post("/api/redirect", campaignController.redirectCampaign, )
 router.get("/api/admin/campaigns/:id/toggle", isAuth, campaignController.toggleCampaign)
 
 
